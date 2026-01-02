@@ -5,6 +5,7 @@ import CollectionCard from "../components/CollectionCard";
 import { motion, AnimatePresence } from "framer-motion";
 import { clearCollection } from "../redux/features/collectionSlice";
 import { toast } from "react-toastify";
+import { FiTrash2 } from "react-icons/fi";
 
 const CollectionPage = () => {
   const collection = useSelector((store) => store.collection.items);
@@ -12,7 +13,7 @@ const CollectionPage = () => {
 
   const clearCollections = () => {
     dispatch(clearCollection());
-    toast.success("Collection Cleared");
+    toast.success("Collection cleared");
   };
 
   if (!collection.length) {
@@ -32,12 +33,20 @@ const CollectionPage = () => {
       transition={{ duration: 0.3 }}
       className="max-w-7xl mx-auto px-4 py-10"
     >
-      <button
-        onClick={() => clearCollections()}
-        className="bg-red-500 px-5 py-2 text-base font-medium rounded-lg"
-      >
-        Clear Collection
-      </button>
+      {/* Page header */}
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-xl font-semibold text-gray-100">Your Collection</h2>
+
+        <button
+          onClick={clearCollections}
+          className="flex items-center gap-2 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-2 text-sm font-medium text-red-400 hover:bg-red-500 hover:text-white transition active:scale-95"
+        >
+          <FiTrash2 className="text-base" />
+          Clear
+        </button>
+      </div>
+
+      {/* Grid */}
       <AnimatePresence>
         <motion.div
           layout
